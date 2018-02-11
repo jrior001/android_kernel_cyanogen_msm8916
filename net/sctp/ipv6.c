@@ -671,6 +671,7 @@ static struct sock *sctp_v6_create_accept_sk(struct sock *sk,
 	RCU_INIT_POINTER(newnp->opt, opt);
 	rcu_read_unlock();
 
+
 	/* Initialize sk's sport, dport, rcv_saddr and daddr for getsockname()
 	 * and getpeername().
 	 */

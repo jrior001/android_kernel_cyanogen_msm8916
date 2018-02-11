@@ -585,9 +585,12 @@ sg_write(struct file *filp, const char __user *buf, size_t count, loff_t * ppos)
 	struct sg_header old_hdr;
 	sg_io_hdr_t *hp;
 	unsigned char cmnd[SG_MAX_CDB_SIZE];
+<<<<<<< HEAD
 
 	if (unlikely(segment_eq(get_fs(), KERNEL_DS)))
 		return -EINVAL;
+=======
+>>>>>>> LA.BR.1.2.9.1-01110-8x16.0
 
 	if ((!(sfp = (Sg_fd *) filp->private_data)) || (!(sdp = sfp->parentdp)))
 		return -ENXIO;
@@ -1706,7 +1709,13 @@ sg_start_req(Sg_request *srp, unsigned char *cmd)
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
 	blk_rq_set_block_pc(rq);
+=======
+	if (hp->cmd_len > BLK_MAX_CDB)
+		rq->cmd = long_cmdp;
+	memcpy(rq->cmd, cmd, hp->cmd_len);
+>>>>>>> LA.BR.1.2.9.1-01110-8x16.0
 
 	if (hp->cmd_len > BLK_MAX_CDB)
 		rq->cmd = long_cmdp;
@@ -2628,9 +2637,15 @@ static void sg_proc_debug_helper(struct seq_file *s, Sg_device * sdp)
 			seq_puts(s, cp);
 			blen = srp->data.bufflen;
 			usg = srp->data.k_use_sg;
+<<<<<<< HEAD
 			seq_puts(s, srp->done ?
 				 ((1 == srp->done) ?  "rcv:" : "fin:")
 				  : "act:");
+=======
+			seq_printf(s, srp->done ?
+				   ((1 == srp->done) ?  "rcv:" : "fin:")
+				   : "act:");
+>>>>>>> LA.BR.1.2.9.1-01110-8x16.0
 			seq_printf(s, " id=%d blen=%d",
 				   srp->header.pack_id, blen);
 			if (srp->done)
